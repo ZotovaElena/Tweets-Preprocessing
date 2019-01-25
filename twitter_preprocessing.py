@@ -81,9 +81,8 @@ def clean_tweets(tweets, model_path = None):
 		for token in tokens:
 			if token not in stop and not emoticon_re.search(token) and not is_number(token) and not token.startswith(('#', '@', 'http')):
 				tweet_tok.append(token)
-										        
-		if len(tweet_tok) > 0:
-			tweets_clean.append(tweet_tok)
+		
+		tweets_clean.append(tweet_tok)
 	return tweets_clean
 
 #load tweets from CSV
