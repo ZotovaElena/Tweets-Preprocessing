@@ -1,4 +1,4 @@
-# Russian-Tweets-Preprocessing
+# Russian Tweets Preprocessing
 
 Script for Russian text preprocessing of Twitter. It can be used to:
 - tokenize the text with regular expressions
