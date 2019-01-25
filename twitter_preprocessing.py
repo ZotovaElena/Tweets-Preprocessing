@@ -123,9 +123,9 @@ for i, tweet in enumerate(tweets_text):
     tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
     #print( tweets["text lemmatized"][i])
 
-#wrie dataframe to pickle 
+#write the dataframe to pickle 
 lemmas_pickle = open("twitter_lemmatized_full_table.pickle","wb")
 pickle.dump(tweets_clean, lemmas_pickle)
 lemmas_pickle.close()    
-#write CSV file with new table
+#write a CSV file with the new table
 tweets_clean.to_csv("tweets_clean.csv", sep='\t', encoding='utf-8')
