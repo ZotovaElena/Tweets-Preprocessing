@@ -11,9 +11,9 @@ Requirements:
 
 Python 3 
 
-pickle
-pandas 
-re
-nltk
-string
-Mystem
+- pickle
+- pandas 
+- re
+- nltk
+- string
+- Mystem
