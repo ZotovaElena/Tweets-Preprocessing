@@ -51,7 +51,7 @@ def is_number(s):
     return number
 
 
-def clean_tweets(tweets, model_path = None):
+def clean_tweets(tweets_in, model_path = None):
     
     #Get tweet list
     tweets = tweets.fillna('')
