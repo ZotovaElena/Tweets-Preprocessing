@@ -90,6 +90,7 @@ def clean_tweets(tweets_in, model_path = None):
     return tweets
 
 def lemmatize(tweets_clean):
+    tweets_clean = tweets_in.copy()    
     tweets_clean["text lemmatized"] = ""
     #make variables from dataframe
     tweets = tweets.fillna('')
