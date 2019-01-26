@@ -110,6 +110,7 @@ def lemmatize(tweets_clean):
 
             tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
             #print( tweets["text lemmatized"][i])
+        return tweets_clean
                 
 additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", "ага", "этот", "это", "почему", 
                         "весь", "ты", "он", "она", "они", "оно", "мы", "вы", "кто", "что", 
