@@ -89,6 +89,28 @@ def clean_tweets(tweets, model_path = None):
         
     return tweets
 
+def lemmatize(tweets_clean):
+        tweets_clean["text lemmatized"] = ""
+        #make variables from dataframe
+        tweets = tweets.fillna('')
+        tweets_text = tweets_clean.text_clean.values
+        tweets_text = list(tweets_clean.text_clean.values)
+
+        print("lemmitizing")
+        #lemmatize clean text and make a new column with lemmas
+        for i, tweet in enumerate(tweets_text):
+            tweet_lem = []
+            lemmas = mystem.lemmatize(tweet.lower())
+            lemmas = " ".join(lemmas).split()
+            print("Lemma", lemmas)
+
+            for l in lemmas:
+                if l not in additional_stopwords:
+                    tweet_lem.append(l)
+
+            tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
+            #print( tweets["text lemmatized"][i])
+                
 additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", "ага", "этот", "это", "почему", 
                         "весь", "ты", "он", "она", "они", "оно", "мы", "вы", "кто", "что", 
                         "сам", "сама", "само", "свой", "наш", "ваш", "их", "тот", "та", "те", 
@@ -102,28 +124,8 @@ tweets = pd.read_csv('tweets.csv', sep=',')
 tweets = tweets.fillna('')
 #make new dataframe with column "clean text", where the text without stopwords and punctuation saved
 tweets_clean = clean_tweets(tweets)
-#create a new column
-tweets_clean["text lemmatized"] = ""
-#make variables from dataframe
-tweets = tweets.fillna('')
-tweets_text = tweets_clean.text_clean.values
-tweets_text = list(tweets_clean.text_clean.values)
 
-print("lemmitizing")
-#lemmatize clean text and make a new column with lemmas
-for i, tweet in enumerate(tweets_text):
-    tweet_lem = []
-    lemmas = mystem.lemmatize(tweet.lower())
-    lemmas = " ".join(lemmas).split()
-    print("Lemma", lemmas)
-    
-    for l in lemmas:
-        if l not in additional_stopwords:
-            tweet_lem.append(l)
-
-    tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
-    #print( tweets["text lemmatized"][i])
-
+lemmatize(tweets_clean)
 #write the dataframe to pickle 
 lemmas_pickle = open("twitter_lemmatized_full_table.pickle","wb")
 pickle.dump(tweets_clean, lemmas_pickle)
