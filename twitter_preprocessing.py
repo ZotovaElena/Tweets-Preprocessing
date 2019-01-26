@@ -100,7 +100,7 @@ additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", 
 #load tweets from CSV
 tweets = pd.read_csv('tweets.csv', sep=',')
 #make new dataframe with column "clean text", where the text without stopwords and punctuation saved
-tweets_clean = clean_tweets(tweets[:10])
+tweets_clean = clean_tweets(tweets)
 #create a new column
 tweets_clean["text lemmatized"] = ""
 #make variables from dataframe
