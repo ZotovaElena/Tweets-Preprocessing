@@ -90,27 +90,27 @@ def clean_tweets(tweets, model_path = None):
     return tweets
 
 def lemmatize(tweets_clean):
-        tweets_clean["text lemmatized"] = ""
-        #make variables from dataframe
-        tweets = tweets.fillna('')
-        tweets_text = tweets_clean.text_clean.values
-        tweets_text = list(tweets_clean.text_clean.values)
+    tweets_clean["text lemmatized"] = ""
+    #make variables from dataframe
+    tweets = tweets.fillna('')
+    tweets_text = tweets_clean.text_clean.values
+    tweets_text = list(tweets_clean.text_clean.values)
 
-        print("lemmitizing")
+    print("lemmitizing")
         #lemmatize clean text and make a new column with lemmas
-        for i, tweet in enumerate(tweets_text):
-            tweet_lem = []
-            lemmas = mystem.lemmatize(tweet.lower())
-            lemmas = " ".join(lemmas).split()
-            print("Lemma", lemmas)
+    for i, tweet in enumerate(tweets_text):
+        tweet_lem = []
+        lemmas = mystem.lemmatize(tweet.lower())
+        lemmas = " ".join(lemmas).split()
+        print("Lemma", lemmas)
 
-            for l in lemmas:
-                if l not in additional_stopwords:
-                    tweet_lem.append(l)
+        for l in lemmas:
+            if l not in additional_stopwords:
+               tweet_lem.append(l)
 
-            tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
+        tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
             #print( tweets["text lemmatized"][i])
-        return tweets_clean
+     return tweets_clean
                 
 additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", "ага", "этот", "это", "почему", 
                         "весь", "ты", "он", "она", "они", "оно", "мы", "вы", "кто", "что", 
