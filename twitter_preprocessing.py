@@ -52,7 +52,7 @@ def is_number(s):
 
 
 def clean_tweets(tweets_in, model_path = None):
-    
+    tweets = tweets_in.copy() #make copy of the original table 
     #Get tweet list
     tweets = tweets.fillna('')
     tweets_text = tweets.text.values
