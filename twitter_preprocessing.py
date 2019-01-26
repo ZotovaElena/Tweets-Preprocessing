@@ -127,10 +127,10 @@ tweets = tweets.fillna('')
 #make new dataframe with column "clean text", where the text without stopwords and punctuation saved
 tweets_clean = clean_tweets(tweets)
 
-lemmatize(tweets_clean)
+tweets_lemmas = lemmatize(tweets_clean)
 #write the dataframe to pickle 
 lemmas_pickle = open("twitter_lemmatized_full_table.pickle","wb")
-pickle.dump(tweets_clean, lemmas_pickle)
+pickle.dump(tweets_lemmas, lemmas_pickle)
 lemmas_pickle.close()    
 #write a CSV file with the new table
-tweets_clean.to_csv("tweets_clean.csv", sep='\t', encoding='utf-8')
+tweets_lemmas.to_csv("tweets_clean.csv", sep='\t', encoding='utf-8')
