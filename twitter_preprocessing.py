@@ -94,7 +94,7 @@ def lemmatize(tweets_clean):
     tweets_text = list(tweets_clean.text_clean.values)
 
     print("lemmitizing")
-        #lemmatize clean text and make a new column with lemmas
+        
     for i, tweet in enumerate(tweets_text):
         tweet_lem = []
         lemmas = mystem.lemmatize(tweet.lower())
@@ -106,7 +106,7 @@ def lemmatize(tweets_clean):
                tweet_lem.append(l)
 
         tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
-            #print( tweets["text lemmatized"][i])
+           
      return tweets_clean
 
 #stopwords to remove after lemmatization 
