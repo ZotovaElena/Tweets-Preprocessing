@@ -7,6 +7,7 @@ from pymystem3 import Mystem
 
 mystem = Mystem()  
 
+#set regular expressions for tokens
 emoticons_str = r"""
         (?:
             [:=;] # Eyes
@@ -32,15 +33,12 @@ emoticon_re = re.compile(r'^'+emoticons_str+'$', re.VERBOSE | re.IGNORECASE)
     
 def tokenize(s):
     return tokens_re.findall(s)
-
-     
+#tokenize and set all words to lowecase
 def preprocess(s, lowercase=False):
     tokens = tokenize(s)
     if lowercase:
         tokens = [token if emoticon_re.search(token) else token.lower() for token in tokens]
     return tokens
-
-
 
 def is_number(s):
     number_list = ['0','1','2','3','4','5','6','7','8','9',',','.']
@@ -49,11 +47,10 @@ def is_number(s):
         if c not in number_list:
             number = False
     return number
-
-
+#remove stopwords and some tokens
 def clean_tweets(tweets_in, model_path = None):
     tweets = tweets_in.copy() #make copy of the original table 
-    #Get tweet list
+    #Get a list of tweets
     tweets = tweets.fillna('')
     tweets_text = tweets.text.values
     tweets_text = list(tweets.text.values)
@@ -74,8 +71,7 @@ def clean_tweets(tweets_in, model_path = None):
     punctuation = list(string.punctuation)
     punctuation += ['–', '—', '"', "¿", "¡"]
     stop = stopwords + punctuation + ['rt', 'via']
-    
-    
+   
     for i, tweet in enumerate(tweets_text):
         tweets_clean = []
         tokens = preprocess(tweet, lowercase=True)
@@ -88,7 +84,7 @@ def clean_tweets(tweets_in, model_path = None):
         tweets["text_clean"][i] = " ".join(tweet_tok)
         
     return tweets
-
+#set all words to its´ initial form (lemmas) and remove the rest of the stopwords
 def lemmatize(tweets_clean):
     tweets_clean = tweets_in.copy()    
     tweets_clean["text lemmatized"] = ""
@@ -112,7 +108,8 @@ def lemmatize(tweets_clean):
         tweets_clean["text lemmatized"][i] = " ".join(tweet_lem)
             #print( tweets["text lemmatized"][i])
      return tweets_clean
-                
+
+#stopwords to remove after lemmatization 
 additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", "ага", "этот", "это", "почему", 
                         "весь", "ты", "он", "она", "они", "оно", "мы", "вы", "кто", "что", 
                         "сам", "сама", "само", "свой", "наш", "ваш", "их", "тот", "та", "те", 
@@ -121,16 +118,15 @@ additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", 
                         "е", "ж", "з", "к", "л", "м", "н", "о", "п", "р", "с", "у", "ф", "ч", 
                         "ц", "ш", "щ", "ь", "ъ","э", "ю", "я"]
  
-#load tweets from CSV
+#load tweets from .CSV
 tweets = pd.read_csv('tweets.csv', sep=',')
 tweets = tweets.fillna('')
 #make new dataframe with column "clean text", where the text without stopwords and punctuation saved
 tweets_clean = clean_tweets(tweets)
-
 tweets_lemmas = lemmatize(tweets_clean)
 #write the dataframe to pickle 
 lemmas_pickle = open("twitter_lemmatized_full_table.pickle","wb")
 pickle.dump(tweets_lemmas, lemmas_pickle)
 lemmas_pickle.close()    
-#write a CSV file with the new table
+#write a .CSV file with new table
 tweets_lemmas.to_csv("tweets_clean.csv", sep='\t', encoding='utf-8')
