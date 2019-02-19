@@ -121,7 +121,7 @@ additional_stopwords = ["еще", "ещё", "меж", "зато", "пусть", 
 #load tweets from .CSV
 tweets = pd.read_csv('tweets.csv', sep=',')
 tweets = tweets.fillna('')
-#make new dataframe with column "clean text", where the text without stopwords and punctuation saved
+#make new dataframe with column "clean text", where the text without stopwords and punctuation is saved
 tweets_clean = clean_tweets(tweets)
 tweets_lemmas = lemmatize(tweets_clean)
 #write the dataframe to pickle 
